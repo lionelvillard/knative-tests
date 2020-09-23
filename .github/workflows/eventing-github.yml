@@ -1,0 +1,29 @@
+name: "Create cluster using KinD"
+on:
+  workflow_dispatch:
+jobs:
+    name: GitHubSource Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v2
+        with:
+          path: main
+      - name: Checkout eventing-github
+        uses: actions/checkout@v2
+        with:
+          repository: knative-sandbox/eventing-github
+          path: eventing-github
+      - name: Set up Go 1.15.x
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.15.x
+      - name: Setup kind
+        uses: engineerd/setup-kind@v0.4.0
+        with:
+          version: "v0.9.0"
+      - name: Run Tests
+        run: |
+          cd main
+          go test -v ./test/eventing-github/...
+
