@@ -1,0 +1,22 @@
+apiVersion: sources.knative.dev/v1alpha1
+kind: GitHubSource
+metadata:
+  name: knative-examples
+spec:
+  eventTypes:
+    - pull_request
+    - issues
+  ownerAndRepository: "lionelvillard/knative-examples"
+  accessToken:
+    secretKeyRef:
+      name: githubsecret
+      key: accessToken
+  secretToken:
+    secretKeyRef:
+      name: githubsecret
+      key: secretToken
+  sink:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: event-display

@@ -1,10 +1,17 @@
 package eventing_github
 
 import (
-	"fmt"
 	"testing"
+
+	"github.com/knative-tests/pkg"
+	"github.com/knative-tests/pkg/components/eventing/sources/github"
+	"github.com/knative-tests/pkg/framework"
 )
 
 func TestMain(m *testing.M) {
-	fmt.Println("testing!")
+	framework.
+		NewSuite(m).
+		Configure(&pkg.AllConfig{}).
+		Require(github.Component).
+		Run()
 }

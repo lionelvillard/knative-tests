@@ -1,10 +1,14 @@
-name: "Create cluster using KinD"
+name: "Run eventing-github e2e tests"
 on:
   workflow_dispatch:
 jobs:
   e2e-testing:
     name: GitHubSource Test
     runs-on: ubuntu-latest
+    env:
+      GOPATH: ${{ github.workspace }}
+      GO111MODULE: off
+      KO_DOCKER_REPO: kind.local
     steps:
       - name: Checkout main
         uses: actions/checkout@v2
@@ -19,10 +23,17 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.15.x
+      - name: Install ko
+        run: |
+          GO111MODULE=on go get github.com/google/ko/cmd/ko@master
       - name: Setup kind
         uses: engineerd/setup-kind@v0.4.0
         with:
           version: "v0.9.0"
+      - name: Setup cluster
+        run: |
+          cd main
+          go test -v ./test/eventing-github/... -setup=true
       - name: Run Tests
         run: |
           cd main
