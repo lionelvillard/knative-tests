@@ -6,8 +6,6 @@ jobs:
     name: GitHubSource Test
     runs-on: ubuntu-latest
     env:
-      GOPATH: ${{ github.workspace }}
-      GO111MODULE: off
       KO_DOCKER_REPO: kind.local
     steps:
       - name: Checkout main
