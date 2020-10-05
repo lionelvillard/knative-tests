@@ -1,4 +1,4 @@
-name: "Run eventing-github e2e tests"
+name: "Testing PublicIP"
 on:
   workflow_dispatch:
 jobs:
