@@ -15,8 +15,8 @@ jobs:
         with:
           go-version: 1.15.x
       - name: Public IP
-          id: ip
-          uses: haythem/public-ip@v1
+        id: ip
+        uses: haythem/public-ip@v1
       - name: Print Public IP
         run: |
           echo ${{ steps.ip.outputs.ipv4 }}
