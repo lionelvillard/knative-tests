@@ -23,11 +23,12 @@ jobs:
 #          echo ${{ steps.ip.outputs.ipv6 }}
       - name: install ngrok
         run: |
+          go run ./cmd/server
 #          curl -LO https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
 #          unzip ngrok-stable-linux-amd64.zip
 #          ./ngrok authtoken $NGROK_TOKEN
 #          ./ngrok help
 #          ./ngrok http 8080 &
-          go run ./cmd/server
+
 
 
