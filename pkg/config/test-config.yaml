@@ -25,9 +25,9 @@ components:
         version: main # from source.
 
   serving:
-    core:
-      version: 0.17
-      network: istio
+    version: 0.17.0
+    network: kourier
+
   event.observer:
     target: log
 

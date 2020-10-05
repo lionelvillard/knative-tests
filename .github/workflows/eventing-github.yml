@@ -24,10 +24,18 @@ jobs:
       - name: Install ko
         run: |
           GO111MODULE=on go get github.com/google/ko/cmd/ko@master
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          version: 'v1.19.0'
       - name: Setup kind
         uses: engineerd/setup-kind@v0.4.0
         with:
           version: "v0.9.0"
+          config: test/eventing-github/kind-config.yaml
+      - name: Public IP
+          id: ip
+          uses: haythem/public-ip@v1
       - name: Setup cluster
         run: |
           cd main

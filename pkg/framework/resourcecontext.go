@@ -68,6 +68,9 @@ type ResourceContext interface {
 	// KoApply calls ko apply -f <FILENAME> in the given directory
 	KoApply(dir, filename string)
 
+	// Apply calls kubectl apply -f <FILENAME>
+	Apply(filename string)
+
 	// Delete deletes the resource specified in the given YAML
 	DeleteFromYAML(yaml string) error
 
@@ -171,8 +174,17 @@ func (c *resourceContextImpl) KoApply(dir, filename string) {
 	if err != nil {
 		c.Fatal(output)
 	}
+}
 
-	fmt.Println(output)
+func (c *resourceContextImpl) Apply(filename string) {
+	c.Helper()
+
+	// TODO: namespace!
+
+	output, err := installer.KubectlApply(filename)
+	if err != nil {
+		c.Fatal(output)
+	}
 }
 
 func (c *resourceContextImpl) DeleteFromYAML(yamlSpec string) error {
